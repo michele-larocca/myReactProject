@@ -23,8 +23,7 @@ const PanelMessage = ({messages, onAddMessage, onResetMessages}) =>
     </div>;
 
 const mapStateToProps = (state, ownProps) => ({
-    messages: getMessages(state),
-    // handlerClick: () => alert("Button is Clicked")
+    messages: getMessages(state)
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
