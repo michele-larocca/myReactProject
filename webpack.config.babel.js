@@ -16,15 +16,15 @@ export default {
     },
     module: {
         rules: [
-            {
-                enforce: "pre",
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                loader: "eslint-loader",
-                options: {
-                  // eslint options (if necessary)
-                }
-            },
+            // {
+            //     enforce: "pre",
+            //     test: /\.(js|jsx)$/,
+            //     exclude: /node_modules/,
+            //     loader: "eslint-loader",
+            //     options: {
+            //       // eslint options (if necessary)
+            //     }
+            // },
             { 
                 test: /\.(js|jsx)$/, 
                 use: 'babel-loader', 
@@ -55,7 +55,13 @@ export default {
     },
     devServer: {
         port: WDS_PORT,
-        hot: true
+        hot: true,
+        proxy: {
+            '/rest/*': {
+                target: 'http://localhost:8080',
+                secure: false
+            }
+        }
     },
     plugins: [
         new HtmlWebpackPlugin({
