@@ -3,13 +3,15 @@
 import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import MainTabs from './component/MainTabHandler'
 import  Alert from './container/alert'
 import reducers from './reducer/index'
 import Immutable from 'immutable'
 import { Provider } from 'react-redux'
-
+import { watchGetMessagesAsync } from './saga/asyncMessage'
+import createSagaMiddleware from 'redux-saga'
+import logger from 'redux-logger'
 // import App from './container/app'
 // import 'semantic-ui-css/components/button.min.css'
 // import 'semantic-ui-css/components/tab.min.css'
@@ -42,8 +44,10 @@ const initialState = {
         {id: '5', name: 'card 5'}
     ]
 };
-
-let store = createStore(reducers, initialState);
+const sagaMiddleware = createSagaMiddleware();
+const middlewares = applyMiddleware(logger, sagaMiddleware);
+let store = createStore(reducers, initialState, middlewares);
+sagaMiddleware.run(watchGetMessagesAsync);
 
 // const functionTestFlow = (num1: number, num2: number) => {
 //     return num1 * num2;

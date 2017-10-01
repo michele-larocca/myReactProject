@@ -4,7 +4,7 @@ import React from 'react';
 import Message from '../component/message'
 import { connect } from 'react-redux'
 import APP_NAME from '../shared/config'
-import { addMessage, overrideMessages } from '../action/message'
+import { addMessage, asyncGetMessages } from '../action/message'
 import { showErrorNotification } from '../action/notification'
 import { getMessages } from '../selector/message'
 import PanelActionsMessage from '../component/panelActionsMessage'
@@ -31,8 +31,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         dispatch( text ? addMessage(text) : 
             showErrorNotification('Scrivere il Messaggio prima di cliccare sul Pulsante Aggiungi'));
     },
-    onResetMessages: (messages) => {
-        dispatch(overrideMessages(messages));
+    onResetMessages: () => {
+        dispatch(asyncGetMessages());
     }
 });
 

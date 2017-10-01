@@ -34,26 +34,12 @@ const PanelActions = styled.div`
     position: relative;
 `;
 
-const executeFetch = (onResetMessages) => {
-    console.log('Start fetch ...');
-
-    fetch('/rest/getDeafaultMessages')
-    .then((response) => response.json())
-    .then((messages) => {
-        console.log({messages});
-        onResetMessages(messages);
-    })
-    .catch((erro) => console.erro({error}))
-
-    console.log('End Start fetch ...');
-};
-
 const PanelActionsMessage = ({onAddMessage, onResetMessages}) => {
     return (
         <PanelActions>
             <CustomInput />
             <Button onClick={() => clickButton(onAddMessage)} label='Add Message' />
-            <ResetButton onClick={() => executeFetch(onResetMessages)} label='Reset Message by ServerValue' />
+            <ResetButton onClick={onResetMessages} label='Reset Message by ServerValue' />
         </PanelActions>);
 };
 
